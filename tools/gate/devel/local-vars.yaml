@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+version:
+  kubernetes: v1.9.1
+  helm: v2.7.2
+  cni: v0.6.0
+
 kubernetes:
   network:
     default_device: docker0
