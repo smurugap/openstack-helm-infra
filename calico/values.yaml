@@ -325,7 +325,7 @@ conf:
     FELIX_HEALTHENABLED: "true"
     # Set Felix experimental Prometheus metrics server
     FELIX_PROMETHEUSMETRICSENABLED: "true"
-    FELIX_PROMETHEUSMETRICSPORT: "9091"
+    FELIX_PROMETHEUSMETRICSPORT: "9096"
     # Auto-detect the BGP IP address.
     IP: ""
     # Detection of source interface for routing
