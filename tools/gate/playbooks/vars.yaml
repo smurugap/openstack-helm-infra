@@ -17,6 +17,9 @@ version:
   helm: v2.7.2
   cni: v0.6.0
 
+docker:
+  insecure_registries: []
+
 images:
   kubernetes:
     kubeadm_aio: openstackhelm/kubeadm-aio:dev

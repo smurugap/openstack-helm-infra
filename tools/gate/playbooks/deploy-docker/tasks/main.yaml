@@ -50,6 +50,18 @@
       rpm:
         - docker-latest
 
+- name: if docker insecure registry is defined
+  set_fact:
+    docker_insecure_registries: "{% if docker.insecure_registries is defined %}\"{{ '\", \"'.join(docker.insecure_registries) }}\"{% endif %}"
+
+- name: moving daemon.json file to /etc/docker/daemon.json
+  when: docker_insecure_registries is defined
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    mode: 0640
+
+
 - name: restarting docker
   systemd:
     state: restarted

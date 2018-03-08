@@ -17,6 +17,11 @@ version:
   helm: v2.7.2
   cni: v0.6.0
 
+docker:
+  insecure_registries:
+    - "10.87.65.243:5000"
+    - "10.87.65.244:5000"
+
 kubernetes:
   network:
     default_device: docker0
