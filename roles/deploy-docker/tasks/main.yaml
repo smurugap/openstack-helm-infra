@@ -94,4 +94,10 @@
     daemon_reload: yes
     name: docker
 
+- name: login to secure_registries
+  become: true
+  become_user: root
+  command: docker login --username {{ item.username }} --password {{ item.password }} {{ item.name }}
+  with_items: "{{ docker.secure_registries }}"
+
 - include: deploy-ansible-docker-support.yaml
