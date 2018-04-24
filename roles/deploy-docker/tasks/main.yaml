@@ -87,19 +87,14 @@
     dest: /etc/docker/daemon.json
     mode: 0640
 
-
 - name: restarting docker
   systemd:
     state: restarted
     daemon_reload: yes
     name: docker
 
-- name: check if docker secure registry is defined
-  set_fact:
-    docker_secure_registries: "{% if docker.secure_registries is defined %}\"{{ docker.secure_registries }}\"{% endif %}"
-
 - name: login to secure_registries
-  when: docker_secure_registries is defined
+  when: docker.secure_registries is defined
   become: true
   become_user: root
   command: docker login --username {{ item.username }} --password {{ item.password }} {{ item.name }}
