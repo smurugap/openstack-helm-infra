@@ -24,7 +24,7 @@ proxy:
 
 docker:
   insecure_registries: []
-  secure_registries: []
+  private_registries: []
 
 images:
   kubernetes:

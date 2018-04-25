@@ -65,14 +65,14 @@ if [ "x${DEPLOY}" == "xsetup-host" ]; then
   ansible_install
   PLAYBOOKS="osh-infra-docker"
 elif [ "x${DEPLOY}" == "xk8s" ]; then
-  PLAYBOOKS="osh-infra-build osh-infra-deploy-k8s"
+  PLAYBOOKS="osh-infra-build osh-infra-deploy-k8s osh-k8s-create-image-secret"
 elif [ "x${DEPLOY}" == "xcharts" ]; then
   PLAYBOOKS="osh-infra-deploy-charts"
 elif [ "x${DEPLOY}" == "xlogs" ]; then
   PLAYBOOKS="osh-infra-collect-logs"
 elif [ "x${DEPLOY}" == "xfull" ]; then
   ansible_install
-  PLAYBOOKS="osh-infra-docker osh-infra-build osh-infra-deploy-k8s osh-infra-deploy-charts osh-infra-collect-logs"
+  PLAYBOOKS="osh-infra-docker osh-infra-build osh-infra-deploy-k8s osh-infra-deploy-charts osh-infra-collect-logs osh-k8s-create-image-secret"
 else
   echo "Unknown Deploy Option Selected"
   exit 1
