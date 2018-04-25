@@ -1,0 +1,29 @@
+- name: check if kubectl is available
+  raw: which kubectl
+  register: kubectl_present
+  ignore_errors: True
+
+- name: kubectl create image pull secret
+  when: ( docker.private_registries is defined ) and ( kubectl_present is success )
+  become: true
+  become_user: root
+  block:
+    - name: check if  namespace exists
+      command: kubectl get ns {{ item.namespace }}
+      register: ns_exists
+      ignore_errors: True
+      with_items: "{{ docker.private_registries }}"
+    - name: create namespace if required
+      when: ns_exists | failed
+      command: kubectl create ns {{ item.namespace }}
+      with_items: "{{ docker.private_registries }}"
+    - name: create imagePullSecret for respective namespace
+      shell: |
+        kubectl create secret docker-registry \
+        {{ item.secret_name | default('contrail-image-secret') }} \
+        --docker-server={{ item.name }} \
+        --docker-username={{ item.username }} \
+        --docker-password={{ item.password }} \
+        --docker-email={{ item.email | default(item.username) }} \
+        --namespace={{ item.namespace | default('openstack') }}
+      with_items: "{{ docker.private_registries }}"
